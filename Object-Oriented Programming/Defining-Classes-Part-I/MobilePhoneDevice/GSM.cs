@@ -15,35 +15,16 @@
         private string model;
         private string manufacturer;
         private decimal? price;
-        private string owner;
 
-        public GSM(string model, string manufacturer)
-            : this(model, manufacturer, null)
-        {
-        }
+        public string Owner { get; set; }
 
-        public GSM(string model, string manufacturer, decimal? price)
-            : this(model, manufacturer, price, null)
+        public GSM(string model, string manufacturer, decimal? price = 0.0m,
+            string owner = null, Battery battery = null, Display display = null)
         {
-        }
-
-        public GSM(string model, string manufacturer, decimal? price, string owner)
-            : this(model, manufacturer, price, owner, null)
-        {
-        }
-
-        public GSM(string model, string manufacturer, decimal? price, string owner, Battery battery)
-            : this(model, manufacturer, price, owner, battery, null)
-        {
-        }
-
-        public GSM(string model, string manufacturer, decimal? price,
-            string owner, Battery battery, Display display)
-        {
-            this.model = model;
-            this.manufacturer = manufacturer;
-            this.price = price;
-            this.owner = owner;
+            this.Model = model;
+            this.Manufacturer = manufacturer;
+            this.Price = price;
+            this.Owner = owner;
             this.battery = battery;
             this.display = display;
         }
@@ -107,61 +88,35 @@
             }
         }
 
-        public string Owner
+        public string ViewCalls()
         {
-            get
-            {
-                return this.owner;
-            }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                { throw new ArgumentException("Invalid Owner: " + value); }
-                this.owner = value;
-            }
-        }
+            var historyList = new StringBuilder();
 
-        public void ViewCalls()
-        {
             if (calls.Count > 0)
             {
-                Console.Write(new string('-', 25));
-                Console.Write("Call List");
-                Console.WriteLine(new string('-', 25));
-                Console.WriteLine("{0,-13}{1,-18}{2}", "Duration", "Dialed number", "Date and Time");
+                historyList.Append(new string('-', 25));
+                historyList.Append("Call List");
+                historyList.Append(new string('-', 25));
+                historyList.Append(Environment.NewLine);
+                historyList.AppendFormat("{0,-13}{1,-18}{2}", "Duration", "Dialed number", "Date and Time");
+                historyList.Append(Environment.NewLine);
                 for (int i = 0; i < this.calls.Count; i++)
                 {
-                    Console.Write("{0,-13}", calls[i].Duration);
-                    Console.Write("{0,-18}", calls[i].DialedNumber);
-                    Console.Write("{0}", calls[i].DateTime);
-                    Console.WriteLine();
+                    historyList.AppendFormat("{0,-13}", calls[i].Duration);
+                    historyList.AppendFormat("{0,-18}", calls[i].DialedNumber);
+                    historyList.AppendFormat("{0}", calls[i].DateTime);
+                    historyList.Append(Environment.NewLine);
                 }
-                Console.WriteLine(new string('-', 59));
+                historyList.Append(new string('-', 59));
             }
             else
             {
-                Console.WriteLine("Call history is empty!");
+                historyList.Append(Environment.NewLine);
+                historyList.Append("Call History is empty!\n");
             }
-        }
 
-        public void ViewCalls1()
-        {
-            if (calls.Count > 0)
-            {
-                Console.WriteLine("---------------- Calls List ------------------");
-                Console.WriteLine("{0,-10}{1,-13} | {2,-8} | {3}", "Date", "Time", "Number", "Duration");
-                foreach (var call in this.calls)
-                {
-                    Console.WriteLine("{0,-23} | {1,-8} | {2}", call.DateTime, call.DialedNumber, call.Duration);
-                }
-                Console.WriteLine("----------------------------------------------");
-            }
-            else
-            {
-                Console.WriteLine("\nNo calls\n");
-            }
+            return historyList.ToString();
         }
-
 
         public void AddCall(string phoneNumber, uint duration)
         {
@@ -169,12 +124,11 @@
             this.calls.Add(newCall);
         }
 
-        public void RemoveCall(string numberToRemove)
+        public string RemoveCall(string numberToRemove)
         {
             if (this.calls.Count == 0)
             {
-                Console.WriteLine("Call history is empty!");
-                return;
+                throw new ArgumentException("Call History is already empty!");
             }
 
             int removedCount = 0;
@@ -184,14 +138,17 @@
                     return call.DialedNumber == numberToRemove;
                 });
 
+            string message = string.Empty;
             if (removedCount > 0)
             {
-                Console.WriteLine("Removed {0} records.", removedCount);
+                message = String.Format("Removed {0} records.", removedCount);
             }
             else
             {
-                Console.WriteLine("Record {0} not found.", numberToRemove);
+                message = String.Format("Record {0} not found.", numberToRemove);
             }
+
+            return message;
         }
 
         public void ClearCallHistory()
@@ -227,7 +184,7 @@
         {
             var info = new StringBuilder();
             info.AppendLine(new string('-', 20));
-            string unknown = "Unknown";
+            const string unknown = "Unknown";
             info.AppendLine("GSM:");
             info.AppendFormat("Model: {0}\n", this.model);
             info.AppendFormat("Manufacturer: {0}\n", this.manufacturer);
@@ -235,7 +192,7 @@
             if (this.price != null) { info.AppendFormat("Price: {0}\n", this.price); }
             else { info.AppendFormat("Price: {0}\n", unknown); }
 
-            if (this.owner != null) { info.AppendFormat("Owner: {0}\n", this.owner); }
+            if (this.Owner != null) { info.AppendFormat("Owner: {0}\n", this.Owner); }
             else { info.AppendFormat("Owner: {0}\n", unknown); }
 
             if (this.battery != null)

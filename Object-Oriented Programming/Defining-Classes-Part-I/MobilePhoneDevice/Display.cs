@@ -4,25 +4,18 @@
 
     public class Display
     {
+        // Field.
         private decimal? size;
-        private string colors;
+        // Prop.
+        public string Colors { get; set; }
 
-        public Display()
-            : this(null)
+        public Display(decimal? size = null, string colors = null)
         {
+            this.Size = size;
+            this.Colors = colors;
         }
 
-        public Display(decimal? size)
-            : this(size, null)
-        {
-        }
-
-        public Display(decimal? size, string colors)
-        {
-            this.size = size;
-            this.colors = colors;
-        }
-
+        // Propfull.
         public decimal? Size
         {
             get { return this.size; }
@@ -34,12 +27,6 @@
                 }
                 this.size = value;
             }
-        }
-
-        public string Colors
-        {
-            get { return this.colors; }
-            set { this.colors = value; }
         }
     }
 }

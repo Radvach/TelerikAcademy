@@ -18,6 +18,7 @@ namespace MobilePhoneDevice
         {
             get { return this.dateTime; }
         }
+        
 
         public string DialedNumber
         {

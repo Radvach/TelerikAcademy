@@ -46,19 +46,19 @@ namespace MobilePhoneDevice
             decimal totalPrice = 0.0m;
             // View calls, Calc price of calls, Print total price.
             // Initial
-            smartGSMs[0].ViewCalls();
+            Console.WriteLine(smartGSMs[0].ViewCalls());
             totalPrice = smartGSMs[0].CalcPriceOfCalls(0.37m);
             Console.WriteLine("Total Price: " + totalPrice.ToString("C", new CultureInfo("bg-BG")));
 
             // Remove longest call from history.
-            smartGSMs[0].RemoveCall("0897777777");
-            smartGSMs[0].ViewCalls();
+            Console.WriteLine(smartGSMs[0].RemoveCall("0897777777"));
+            Console.WriteLine(smartGSMs[0].ViewCalls());
             totalPrice = smartGSMs[0].CalcPriceOfCalls(0.37m);
             Console.WriteLine("Total Price: " + totalPrice.ToString("C", new CultureInfo("bg-BG")));
 
             // Clear call history.
             smartGSMs[0].ClearCallHistory();
-            smartGSMs[0].ViewCalls();
+            Console.WriteLine(smartGSMs[0].ViewCalls());
             totalPrice = smartGSMs[0].CalcPriceOfCalls(0.37m);
             Console.WriteLine("Total Price: " + totalPrice.ToString("C", new CultureInfo("bg-BG")));
         }
