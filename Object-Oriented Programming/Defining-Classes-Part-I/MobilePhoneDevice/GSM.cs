@@ -66,6 +66,7 @@
             }
             set
             {
+                //Validate(value);
                 if (string.IsNullOrEmpty(value))
                 { throw new ArgumentException("Invalid Manufacturer: " + value); }
                 this.manufacturer = value;
@@ -229,6 +230,15 @@
 
             return info.ToString();
         }
+
+        
+         //private void Validate(string value)
+         //{
+         //    if (string.IsNullOrEmpty(value))
+         //    {
+         //        throw new ArgumentException("Invalid value: " + value);
+         //    }
+         //}
     }
 }
 /*
