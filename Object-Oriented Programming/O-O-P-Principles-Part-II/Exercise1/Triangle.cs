@@ -10,7 +10,7 @@
 
         public override double CalculateSurface()
         {
-            return (this.Height * this.Width) / 2.0;
+            return (base.Height * base.Width) / 2.0;
         }
     }
 }

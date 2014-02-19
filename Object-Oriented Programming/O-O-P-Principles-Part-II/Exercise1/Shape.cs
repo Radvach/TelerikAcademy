@@ -20,7 +20,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Value should be positive.");
+                    throw new ArgumentException("Value should be positive: " + value);
                 }
 
                 this.width = value;
@@ -34,7 +34,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Value should be positive.");
+                    throw new ArgumentException("Value should be positive: " + value);
                 }
 
                 this.height = value; 
