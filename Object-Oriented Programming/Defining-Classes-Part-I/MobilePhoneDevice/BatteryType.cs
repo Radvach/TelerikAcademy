@@ -5,5 +5,6 @@
         LiIon,
         NiMH,
         NiCd,
+
     }
 }
