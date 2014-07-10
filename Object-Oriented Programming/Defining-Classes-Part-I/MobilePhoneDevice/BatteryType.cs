@@ -4,6 +4,6 @@ namespace MobilePhoneDevice
     {
         LiIon,
         NiMH,
-        NiCd
+        NiCd,,
     }
 }
