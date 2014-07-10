@@ -1,6 +1,7 @@
-﻿using System;
-namespace MobilePhoneDevice
+﻿namespace MobilePhoneDevice
 {
+	using System;
+
     public class Call
     {
         private DateTime dateTime;
